@@ -9,17 +9,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun WeatherContent() {
+fun HomeContent() {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()
     ) {
-        Text(text = "Weather_Screen")
+        Text(text = "Home_Screen")
     }
 }
 
 @Preview
 @Composable
-fun WeatherContentPreview() {
-    WeatherContent()
+fun HomeContentPreview() {
+    HomeContent()
 }

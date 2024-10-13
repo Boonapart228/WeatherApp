@@ -56,6 +56,7 @@ dependencies {
 
     //Hilt
     implementation(libs.hilt.android.v251)
+    implementation(libs.androidx.ui.text.google.fonts)
     ksp(libs.hilt.compiler)
     //Navigation
     implementation(libs.androidx.navigation.compose)

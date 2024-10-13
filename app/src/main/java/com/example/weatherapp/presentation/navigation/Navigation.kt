@@ -7,16 +7,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.weatherapp.presentation.navigation.model.Screens
 import com.example.weatherapp.presentation.setting_screen.components.SettingContent
-import com.example.weatherapp.presentation.weather_screen.WeatherScreen
+import com.example.weatherapp.presentation.weather_screen.HomeScreen
 
 @Composable
 fun Navigation(navController: NavHostController = rememberNavController()) {
     NavHost(
         navController = navController,
-        startDestination = Screens.SETTING_SCREEN.route
+        startDestination = Screens.HOME_SCREEN.route
     ) {
-        composable(route = Screens.WEATHER_SCREEN.route) {
-            WeatherScreen()
+        composable(route = Screens.HOME_SCREEN.route) {
+            HomeScreen()
         }
         composable(route = Screens.SETTING_SCREEN.route) {
             SettingContent()

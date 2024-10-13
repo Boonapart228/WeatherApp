@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.weatherapp.presentation.navigation.model.Screens
 import com.example.weatherapp.presentation.setting_screen.components.SettingContent
-import com.example.weatherapp.presentation.weather_screen.HomeScreen
+import com.example.weatherapp.presentation.home_screen.HomeScreen
 
 @Composable
 fun Navigation(navController: NavHostController = rememberNavController()) {

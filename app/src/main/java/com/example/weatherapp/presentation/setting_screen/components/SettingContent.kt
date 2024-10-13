@@ -14,10 +14,10 @@ import com.example.weatherapp.presentation.navigation.model.Screens
 
 
 @Composable
-fun SettingContent(onTopBarNavigationClick: (Screens) -> Unit, state: SettingState) {
+fun SettingContent(onBottomBarNavigationClick: (Screens) -> Unit, state: SettingState) {
     Scaffold(bottomBar = {
         BottomBar(
-            onClick = onTopBarNavigationClick,
+            onClick = onBottomBarNavigationClick,
             selected = state.selectedScreen
         )
     }) {

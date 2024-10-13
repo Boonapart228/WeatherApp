@@ -14,12 +14,12 @@ import com.example.weatherapp.presentation.navigation.model.Screens
 
 @Composable
 fun HomeContent(
-    onTopBarNavigationClick: (Screens) -> Unit,
+    onBottomBarNavigationClick: (Screens) -> Unit,
     state: HomeState
 ) {
     Scaffold(bottomBar = {
         BottomBar(
-            onClick = onTopBarNavigationClick,
+            onClick = onBottomBarNavigationClick,
             selected = state.selectedScreen
         )
     }) {
@@ -37,5 +37,5 @@ fun HomeContent(
 @Preview
 @Composable
 fun HomeContentPreview() {
-    HomeContent(onTopBarNavigationClick = {}, HomeState())
+    HomeContent(onBottomBarNavigationClick = {}, HomeState())
 }

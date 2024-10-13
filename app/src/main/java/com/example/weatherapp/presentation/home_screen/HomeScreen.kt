@@ -23,7 +23,7 @@ fun HomeScreen(
 
     }
     HomeContent(
-        onTopBarNavigationClick = viewModel::onTopBarNavigationClick,
+        onBottomBarNavigationClick = viewModel::onBottomBarNavigationClick,
         state = state
     )
 }

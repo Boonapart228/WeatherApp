@@ -24,7 +24,7 @@ fun SettingScreen(
 
     }
     SettingContent(
-        onTopBarNavigationClick = viewModel::onTopBarNavigationClick,
+        onBottomBarNavigationClick = viewModel::onBottomBarNavigationClick,
         state = state
     )
 }

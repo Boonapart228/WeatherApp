@@ -19,7 +19,7 @@ class SettingViewModel : ViewModel() {
 
     val event = _event.asSharedFlow()
 
-    fun onTopBarNavigationClick(route: Screens) {
+    fun onBottomBarNavigationClick(route: Screens) {
         when (route) {
             Screens.SETTING_SCREEN -> {}
             Screens.HOME_SCREEN -> viewModelScope.launch { _event.emit(SettingNavigationEvent.NavigationToHome) }

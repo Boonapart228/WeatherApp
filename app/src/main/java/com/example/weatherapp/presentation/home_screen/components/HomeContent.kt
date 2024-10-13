@@ -1,4 +1,4 @@
-package com.example.weatherapp.presentation.weather_screen.components
+package com.example.weatherapp.presentation.home_screen.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

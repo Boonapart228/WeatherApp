@@ -14,6 +14,7 @@ fun HomeScreen(
     navigationToSetting: () -> Unit
 ) {
     val state by viewModel.state.collectAsState()
+    val weatherResult by viewModel.weatherResult.collectAsState()
     LaunchedEffect(Unit) {
         viewModel.event.collect {
             when (it) {
@@ -24,6 +25,9 @@ fun HomeScreen(
     }
     HomeContent(
         onBottomBarNavigationClick = viewModel::onBottomBarNavigationClick,
-        state = state
+        state = state,
+        setCity = viewModel::setCity,
+        onFindCityClick = viewModel::onFindCityClick,
+        weatherResult = weatherResult
     )
 }

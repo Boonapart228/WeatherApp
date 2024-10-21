@@ -4,18 +4,20 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.weatherapp.domain.models.NetworkResponse
 import com.example.weatherapp.domain.models.WeatherModel
 import com.example.weatherapp.presentation.bottom_bar.BottomBar
+import com.example.weatherapp.presentation.home_screen.contents.ErrorScreen
+import com.example.weatherapp.presentation.home_screen.contents.LoadingScreen
+import com.example.weatherapp.presentation.home_screen.contents.TextFieldWithValidation
+import com.example.weatherapp.presentation.home_screen.contents.WeatherItem
 import com.example.weatherapp.presentation.navigation.model.Screens
 
 @Composable
@@ -24,8 +26,11 @@ fun HomeContent(
     setCity: (String) -> Unit,
     onFindCityClick: () -> Unit,
     weatherResult: NetworkResponse<WeatherModel>,
-    state: HomeState
+    state: HomeState,
 ) {
+
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     Scaffold(bottomBar = {
         BottomBar(
             onClick = onBottomBarNavigationClick,
@@ -33,37 +38,38 @@ fun HomeContent(
         )
     }) {
         Column(
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
+                .padding(16.dp)
         ) {
-            TextField(value = state.city, onValueChange = setCity)
-            Button(onClick = { onFindCityClick() }) {
-                Text("Find City")
-            }
+            TextFieldWithValidation(
+                value = state.city,
+                onValueChange = setCity,
+                isError = state.inValidCity,
+                supportingText = state.supportingText,
+                onFindCityClick = {
+                    onFindCityClick()
+                    keyboardController?.hide()
+                }
+            )
 
             when (weatherResult) {
-                is NetworkResponse.Error -> Text(text = weatherResult.message)
-                NetworkResponse.Loading -> CircularProgressIndicator()
-                is NetworkResponse.Success -> WeatherItem(weatherResult.data)
+                is NetworkResponse.Error -> ErrorScreen(messageId = weatherResult.message)
+                NetworkResponse.Loading -> LoadingScreen()
+                is NetworkResponse.Success -> {
+                    WeatherItem(
+                        weatherResult.data
+                    )
+                }
+
                 NetworkResponse.Default -> {}
             }
         }
     }
 }
-
-
-@Composable
-fun WeatherItem(data: WeatherModel) {
-    Column(modifier = Modifier.fillMaxSize()) {
-        Text(text = data.current.temp_c.toString())
-        Text(text = data.location.name)
-    }
-
-}
-
 
 @Preview
 @Composable

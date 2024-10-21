@@ -53,7 +53,9 @@ android {
 }
 
 dependencies {
-
+    //Coil
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
     //Hilt
     implementation(libs.hilt.android.v251)
     implementation(libs.androidx.ui.text.google.fonts)
@@ -62,9 +64,11 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.hilt.navigation.compose.v100)
     //Retrofit
-    implementation (libs.retrofit)
+    implementation(libs.retrofit)
     //GSON
-    implementation (libs.converter.gson)
+    implementation(libs.converter.gson)
+    //Lottie
+    implementation (libs.lottie.compose)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

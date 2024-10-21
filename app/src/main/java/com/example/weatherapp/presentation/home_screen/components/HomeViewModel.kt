@@ -2,6 +2,7 @@ package com.example.weatherapp.presentation.home_screen.components
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.weatherapp.R
 import com.example.weatherapp.domain.models.NetworkResponse
 import com.example.weatherapp.domain.models.WeatherModel
 import com.example.weatherapp.domain.usecase.GetDataByCityUseCase
@@ -47,33 +48,46 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    private fun validCity(): Boolean {
+        if (_state.value.city.isBlank() || _state.value.city.any { it.isDigit() }) {
+            _state.update {
+                it.copy(
+                    inValidCity = true,
+                    supportingText = R.string.city_no_digits
+                )
+            }
+            return false
+        } else {
+            _state.update {
+                it.copy(
+                    inValidCity = false,
+                    supportingText = R.string.enter_city_prompt
+                )
+            }
+            return true
+        }
+    }
+
 
     fun onFindCityClick() {
-        //Потім переписати
-        if (_state.value.city.isBlank() || _state.value.city.isEmpty()) {
-            _weatherResult.value = NetworkResponse.Error("City is not set")
-            return
-        }
         _weatherResult.value = NetworkResponse.Loading
-        viewModelScope.launch {
-            try {
-                val response = getDataByCityUseCase.get().execute(city = _state.value.city)
-                if (response.isSuccessful) {
-                    response.body()?.let {
-                        if (it.location.name.isBlank()) {
-                            _weatherResult.value = NetworkResponse.Error("City not found")
-                        } else {
+        if (validCity()) {
+            viewModelScope.launch {
+                try {
+                    val response = getDataByCityUseCase.get().execute(city = _state.value.city)
+                    if (response.isSuccessful) {
+                        response.body()?.let {
                             _weatherResult.value = NetworkResponse.Success(it)
                         }
-                    } ?: run {
-                        _weatherResult.value = NetworkResponse.Error("Empty response body")
+                    } else {
+                        _weatherResult.value = NetworkResponse.Error("Error: ${response.message()}")
                     }
-                } else {
-                    _weatherResult.value = NetworkResponse.Error("Error: ${response.message()}")
+                } catch (e: Exception) {
+                    _weatherResult.value = NetworkResponse.Error("Exception: ${e.message}")
                 }
-            } catch (e: Exception) {
-                _weatherResult.value = NetworkResponse.Error("Exception: ${e.message}")
             }
+        } else {
+            _weatherResult.value = NetworkResponse.Error("In valid city")
         }
     }
 

@@ -78,6 +78,8 @@ class HomeViewModel @Inject constructor(
                     if (response.isSuccessful) {
                         response.body()?.let {
                             _weatherResult.value = NetworkResponse.Success(it)
+                        } ?: run {
+                            _weatherResult.value = NetworkResponse.Error("No data found")
                         }
                     } else {
                         _weatherResult.value = NetworkResponse.Error("Error: ${response.message()}")

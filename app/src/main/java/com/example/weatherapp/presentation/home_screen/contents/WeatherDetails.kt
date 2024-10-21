@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
+import com.example.weatherapp.ui.theme.LocalDimen
 
 @Composable
 fun WeatherDetails(titleId: Int, info: String, symbolId: Int, modifier: Modifier = Modifier) {
@@ -22,8 +22,8 @@ fun WeatherDetails(titleId: Int, info: String, symbolId: Int, modifier: Modifier
 
         ) {
         Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.padding(LocalDimen.current.columnPadding),
+            verticalArrangement = Arrangement.spacedBy(LocalDimen.current.columnDetailsSpacing),
             horizontalAlignment = Alignment.Start
         ) {
             Text(
@@ -31,7 +31,7 @@ fun WeatherDetails(titleId: Int, info: String, symbolId: Int, modifier: Modifier
                 textAlign = TextAlign.Start,
                 fontWeight = FontWeight.Bold
             )
-            Row(horizontalArrangement = Arrangement.spacedBy(2.dp)) {
+            Row(horizontalArrangement = Arrangement.spacedBy(LocalDimen.current.rowDetailsSpacing)) {
                 Text(
                     text = info
                 )

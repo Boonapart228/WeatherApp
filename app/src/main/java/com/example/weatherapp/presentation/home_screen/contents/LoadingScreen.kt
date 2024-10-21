@@ -15,7 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.unit.dp
+import com.example.weatherapp.presentation.home_screen.model.WeatherDetail
+import com.example.weatherapp.ui.theme.LocalDimen
+import com.example.weatherapp.ui.theme.LocalProperty
 
 @Composable
 fun LoadingScreen() {
@@ -25,45 +27,47 @@ fun LoadingScreen() {
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(24.dp, Alignment.CenterVertically),
+            verticalArrangement = Arrangement.spacedBy(LocalDimen.current.columnSpacing, Alignment.CenterVertically),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally)
+                horizontalArrangement = Arrangement.spacedBy(LocalDimen.current.rowSpacing, Alignment.CenterHorizontally)
             ) {
                 ShimmerEffect(
                     modifier = Modifier
                         .clip(CircleShape)
-                        .size(32.dp)
+                        .size(LocalDimen.current.shimmerEffectMediumSize)
                 )
                 ShimmerEffect(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .size(12.dp)
+                        .size(LocalDimen.current.shimmerEffectShortSize)
                 )
             }
             ShimmerEffect(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .size(12.dp)
+                    .size(LocalDimen.current.shimmerEffectShortSize)
             )
 
             ShimmerEffect(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .size(120.dp)
+                    .size(LocalDimen.current.shimmerEffectLongSize)
             )
             LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
+                columns = GridCells.Fixed(LocalProperty.current.columnGridCells),
                 modifier = Modifier.fillMaxWidth(),
-                contentPadding = PaddingValues(8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                contentPadding = PaddingValues(LocalDimen.current.lazyContentPadding),
+                horizontalArrangement = Arrangement.spacedBy(LocalDimen.current.lazyHorizontalSpacing),
+                verticalArrangement = Arrangement.spacedBy(LocalDimen.current.lazyVerticalSpacing)
             ) {
-                repeat(6) {
-                    item { ShimmerEffect(Modifier.size(width = 12.dp, height = 32.dp)) }
+                WeatherDetail.entries.forEach { _ ->
+                    item {
+                        ShimmerEffect(Modifier.size(width = LocalDimen.current.shimmerEffectShortSize, height = LocalDimen.current.shimmerEffectMediumSize))
+                    }
                 }
             }
         }

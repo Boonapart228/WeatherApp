@@ -36,4 +36,5 @@ fun SettingContent(onBottomBarNavigationClick: (Screens) -> Unit, state: Setting
 @Preview
 @Composable
 fun SettingContentPreview() {
+    SettingContent({}, SettingState())
 }

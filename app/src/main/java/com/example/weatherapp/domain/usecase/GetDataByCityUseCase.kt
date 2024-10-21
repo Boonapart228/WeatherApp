@@ -8,7 +8,7 @@ import retrofit2.Response
 class GetDataByCityUseCase(
     private val weatherApiRepository: WeatherApiRepository
 ) {
-    suspend fun execute(apiKey: String = Constant.apiKey, city: String): Response<WeatherModel> {
+    suspend fun execute(apiKey: String = Constant.API_KEY, city: String): Response<WeatherModel> {
         return weatherApiRepository.getDataByCity(apiKey, city)
     }
 }

@@ -9,5 +9,6 @@ val LocalDimen = compositionLocalOf {
 }
 
 data class Dimensions(
-    val iconSize: Dp = 24.dp
+    val iconSize: Dp = 24.dp,
+    val shimmerEffectShape: Dp = 12.dp,
 )

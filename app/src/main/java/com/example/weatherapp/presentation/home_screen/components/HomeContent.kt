@@ -10,7 +10,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.weatherapp.domain.models.NetworkResponse
 import com.example.weatherapp.domain.models.WeatherModel
 import com.example.weatherapp.presentation.bottom_bar.BottomBar
@@ -19,6 +18,7 @@ import com.example.weatherapp.presentation.home_screen.contents.LoadingScreen
 import com.example.weatherapp.presentation.home_screen.contents.TextFieldWithValidation
 import com.example.weatherapp.presentation.home_screen.contents.WeatherItem
 import com.example.weatherapp.presentation.navigation.model.Screens
+import com.example.weatherapp.ui.theme.LocalDimen
 
 @Composable
 fun HomeContent(
@@ -43,7 +43,7 @@ fun HomeContent(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
-                .padding(16.dp)
+                .padding(LocalDimen.current.columnWidth)
         ) {
             TextFieldWithValidation(
                 value = state.city,

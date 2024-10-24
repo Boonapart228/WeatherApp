@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">WeatherApp</string>
-    <string name="home_bottom_bar">Home</string>
-    <string name="setting_bottom_bar">Setting</string>
+    <string name="home_bottom_bar">Головна</string>
+    <string name="setting_bottom_bar">Налаштування</string>
     <string name="enter_city_prompt">Введіть місто</string>
     <string name="city_no_digits">Цифри не допускаються</string>
     <string name="temperature">Температура</string>
@@ -14,7 +15,5 @@
     <string name="c">°</string>
     <string name="kilometer_per_hour">kM/h</string>
     <string name="empty" />
-    <string name="en" translatable="false">English</string>
-    <string name="uk" translatable="false">Українська</string>
     <string name="select_language">Оберіть мову</string>
 </resources>

@@ -32,7 +32,10 @@ fun WeatherItem(
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(LocalDimen.current.columnSpacing, Alignment.CenterVertically),
+        verticalArrangement = Arrangement.spacedBy(
+            LocalDimen.current.columnSpacing,
+            Alignment.CenterVertically
+        ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
@@ -45,7 +48,11 @@ fun WeatherItem(
                 contentDescription = null,
                 modifier = Modifier.size(LocalDimen.current.iconSize)
             )
-            Text(text = data.location.name, fontSize = LocalDimen.current.largeTextSize, fontWeight = FontWeight.Medium)
+            Text(
+                text = data.location.name,
+                fontSize = LocalDimen.current.largeTextSize,
+                fontWeight = FontWeight.Medium
+            )
         }
         Text(text = data.current.condition.text, fontSize = LocalDimen.current.mediumTextSize)
         AsyncImage(

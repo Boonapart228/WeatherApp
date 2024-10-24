@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">WeatherApp</string>
     <string name="home_bottom_bar">Home</string>
@@ -14,6 +15,4 @@
     <string name="c">°</string>
     <string name="kilometer_per_hour">kM/h</string>
     <string name="empty" />
-    <string name="en" translatable="false">English</string>
-    <string name="uk" translatable="false">Українська</string>
 </resources>

@@ -16,4 +16,5 @@
     <string name="empty" />
     <string name="en" translatable="false">English</string>
     <string name="uk" translatable="false">Українська</string>
+    <string name="select_language">Оберіть мову</string>
 </resources>

@@ -17,7 +17,7 @@ class DataModule {
     }
 
     @Provides
-    fun provideGetDataByCityUseCase(weatherApiRepository: WeatherApiRepository) : GetDataByCityUseCase{
+    fun provideGetDataByCityUseCase(weatherApiRepository: WeatherApiRepository): GetDataByCityUseCase {
         return GetDataByCityUseCase(weatherApiRepository)
     }
 }

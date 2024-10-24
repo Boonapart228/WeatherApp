@@ -15,4 +15,5 @@
     <string name="c">°</string>
     <string name="kilometer_per_hour">kM/h</string>
     <string name="empty" />
+    <string name="select_language">Choose a language</string>
 </resources>

@@ -11,6 +11,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -34,12 +35,12 @@ import com.example.weatherapp.presentation.setting_screen.model.Languages
 @Composable
 fun SettingContent(onBottomBarNavigationClick: (Screens) -> Unit, state: SettingState) {
 
-//    Scaffold(bottomBar = {
-//        BottomBar(
-//            onClick = onBottomBarNavigationClick,
-//            selected = state.selectedScreen
-//        )
-//    }) {
+    Scaffold(bottomBar = {
+        BottomBar(
+            onClick = onBottomBarNavigationClick,
+            selected = state.selectedScreen
+        )
+    }) {
         val localeOptions = mapOf(
             R.string.en to "en",
             R.string.uk to "uk",
@@ -54,7 +55,7 @@ fun SettingContent(onBottomBarNavigationClick: (Screens) -> Unit, state: Setting
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
-//                .padding(it)
+                .padding(it)
         ) {
             Text(text = stringResource(id = R.string.time))
             ExposedDropdownMenuBox(
@@ -70,7 +71,10 @@ fun SettingContent(onBottomBarNavigationClick: (Screens) -> Unit, state: Setting
                             expanded = expanded
                         )
                     },
-                    modifier = Modifier.menuAnchor()
+                    modifier = Modifier.menuAnchor(
+                        type = MenuAnchorType.PrimaryEditable,
+                        enabled = true
+                    )
                 )
                 ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
                     localeOptions.keys.forEach { selectionLocale ->
@@ -87,11 +91,9 @@ fun SettingContent(onBottomBarNavigationClick: (Screens) -> Unit, state: Setting
                             })
                     }
                 }
-
             }
         }
-//    }
-
+    }
 }
 
 @Preview

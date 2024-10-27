@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.R
 import com.example.weatherapp.domain.models.NetworkResponse
 import com.example.weatherapp.domain.models.WeatherModel
-import com.example.weatherapp.domain.usecase.GetDataByCityUseCase
+import com.example.weatherapp.domain.usecase.weather.GetDataByCityUseCase
 import com.example.weatherapp.presentation.navigation.model.Screens
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow

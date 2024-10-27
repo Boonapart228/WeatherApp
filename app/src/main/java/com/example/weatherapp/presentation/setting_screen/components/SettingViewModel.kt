@@ -4,17 +4,25 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.weatherapp.domain.usecase.setting.GetLanguageIdUseCase
+import com.example.weatherapp.domain.usecase.setting.SetLanguageUseCase
 import com.example.weatherapp.presentation.navigation.model.Screens
-import com.example.weatherapp.presentation.setting_screen.model.Languages
+import com.example.weatherapp.presentation.setting_screen.model.Language
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Provider
 
+@HiltViewModel
 class SettingViewModel @Inject constructor(
+    private val setLanguageUseCase: Provider<SetLanguageUseCase>,
+    private val getLanguageIdUseCase: Provider<GetLanguageIdUseCase>
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(SettingState())
@@ -26,7 +34,7 @@ class SettingViewModel @Inject constructor(
     val event = _event.asSharedFlow()
 
     init {
-        getLanguage()
+        getLanguageId()
     }
 
 
@@ -47,21 +55,21 @@ class SettingViewModel @Inject constructor(
         }
     }
 
-    private fun getLanguage() {
+    private fun getLanguageId() {
         viewModelScope.launch {
             _state.update {
                 it.copy(
-                    selectedLocale = Languages.entries.first().languageId
+                    selectedLocaleId = getLanguageIdUseCase.get().execute().first()
                 )
             }
         }
     }
 
-    fun setLanguage(selectionLocale: Languages) {
+    fun setLanguage(selectionLocale: Language) {
         viewModelScope.launch {
             _state.update {
                 it.copy(
-                    selectedLocale = selectionLocale.languageId
+                    selectedLocaleId = selectionLocale.languageId
                 )
             }
             AppCompatDelegate.setApplicationLocales(
@@ -69,8 +77,7 @@ class SettingViewModel @Inject constructor(
                     selectionLocale.languageCode
                 )
             )
+            setLanguageUseCase.get().execute(selectionLocale)
         }
     }
-
-
 }

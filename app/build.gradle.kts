@@ -69,6 +69,8 @@ dependencies {
     implementation(libs.converter.gson)
     //Lottie
     implementation (libs.lottie.compose)
+    //Data Store
+    implementation(libs.androidx.datastore.preferences)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

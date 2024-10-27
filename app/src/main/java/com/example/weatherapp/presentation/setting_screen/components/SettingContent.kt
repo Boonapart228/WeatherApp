@@ -20,7 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.weatherapp.R
 import com.example.weatherapp.presentation.bottom_bar.BottomBar
 import com.example.weatherapp.presentation.navigation.model.Screens
-import com.example.weatherapp.presentation.setting_screen.model.Languages
+import com.example.weatherapp.presentation.setting_screen.model.Language
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,7 +28,7 @@ import com.example.weatherapp.presentation.setting_screen.model.Languages
 fun SettingContent(
     state: SettingState,
     onHandleExpanded: () -> Unit,
-    setLanguage: (Languages) -> Unit,
+    setLanguage: (Language) -> Unit,
     onBottomBarNavigationClick: (Screens) -> Unit
 ) {
 
@@ -53,7 +53,7 @@ fun SettingContent(
             {
                 TextField(
                     readOnly = true,
-                    value = stringResource(id = state.selectedLocale),
+                    value = stringResource(id = state.selectedLocaleId),
 
                     onValueChange = {},
                     trailingIcon = {
@@ -69,7 +69,7 @@ fun SettingContent(
                 ExposedDropdownMenu(
                     expanded = state.expanded,
                     onDismissRequest = { onHandleExpanded() }) {
-                    Languages.entries.forEach { element ->
+                    Language.entries.forEach { element ->
                         DropdownMenuItem(
                             text = { Text(stringResource(id = element.languageId)) },
                             onClick = {

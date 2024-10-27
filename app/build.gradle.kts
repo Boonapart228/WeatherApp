@@ -70,9 +70,7 @@ dependencies {
     //Lottie
     implementation (libs.lottie.compose)
     //Data Store
-    implementation("androidx.datastore:datastore-preferences-core:1.1.1")
-    implementation("androidx.datastore:datastore-core:1.1.1")
-    implementation("androidx.datastore:datastore-preferences:1.1.1")
+    implementation(libs.androidx.datastore.preferences)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

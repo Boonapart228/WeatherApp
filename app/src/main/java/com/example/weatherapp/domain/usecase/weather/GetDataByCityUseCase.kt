@@ -1,4 +1,4 @@
-package com.example.weatherapp.domain.usecase
+package com.example.weatherapp.domain.usecase.weather
 
 import com.example.weatherapp.data.api.Constant
 import com.example.weatherapp.domain.models.WeatherModel

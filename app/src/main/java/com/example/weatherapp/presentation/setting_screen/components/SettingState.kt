@@ -6,5 +6,5 @@ import com.example.weatherapp.presentation.navigation.model.Screens
 data class SettingState(
     val selectedScreen: Screens = Screens.SETTING_SCREEN,
     val expanded: Boolean = false,
-    val selectedLocale: Int = R.string.en,
+    val selectedLocaleId: Int = R.string.en,
 )

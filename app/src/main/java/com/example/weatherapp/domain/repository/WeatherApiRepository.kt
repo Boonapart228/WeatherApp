@@ -11,6 +11,7 @@ interface WeatherApiRepository {
     @GET("/v1/current.json")
     suspend fun getDataByCity(
         @Query("key") apikey: String = Constant.API_KEY,
-        @Query("q") city: String
+        @Query("q") city: String,
+        @Query("lang") languageCode: String
     ): Response<WeatherModel>
 }

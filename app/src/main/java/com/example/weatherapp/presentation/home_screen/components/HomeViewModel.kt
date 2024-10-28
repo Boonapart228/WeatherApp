@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.R
 import com.example.weatherapp.domain.models.NetworkResponse
 import com.example.weatherapp.domain.models.WeatherModel
+import com.example.weatherapp.domain.usecase.setting.GetLanguageCodeUseCase
 import com.example.weatherapp.domain.usecase.weather.GetDataByCityUseCase
 import com.example.weatherapp.presentation.navigation.model.Screens
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,7 +22,8 @@ import javax.inject.Provider
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getDataByCityUseCase: Provider<GetDataByCityUseCase>
+    private val getDataByCityUseCase: Provider<GetDataByCityUseCase>,
+    private val getLanguageCodeUseCase: Provider<GetLanguageCodeUseCase>
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(HomeState())
@@ -74,7 +77,10 @@ class HomeViewModel @Inject constructor(
         if (validCity()) {
             viewModelScope.launch {
                 try {
-                    val response = getDataByCityUseCase.get().execute(city = _state.value.city)
+                    val response = getDataByCityUseCase.get().execute(
+                        city = _state.value.city,
+                        languageCode = getLanguageCodeUseCase.get().execute().first()
+                    )
                     if (response.isSuccessful) {
                         response.body()?.let {
                             _weatherResult.value = NetworkResponse.Success(it)

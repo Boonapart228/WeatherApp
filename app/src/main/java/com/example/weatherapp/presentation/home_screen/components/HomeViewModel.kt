@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.R
 import com.example.weatherapp.domain.models.NetworkResponse
 import com.example.weatherapp.domain.models.WeatherModel
-import com.example.weatherapp.domain.repository.UserSettings
 import com.example.weatherapp.domain.usecase.setting.GetLanguageCodeUseCase
 import com.example.weatherapp.domain.usecase.weather.GetDataByCityUseCase
 import com.example.weatherapp.presentation.navigation.model.Screens

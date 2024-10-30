@@ -11,9 +11,6 @@
     <string name="wind">Вітер</string>
     <string name="time">Час</string>
     <string name="data_last_update">Дата оновлення</string>
-    <string name="percent">%</string>
-    <string name="c">°</string>
-    <string name="kilometer_per_hour">kM/h</string>
-    <string name="empty" />
     <string name="select_language">Оберіть мову</string>
+    <string name="select_font_size">Оберіть розмір тексту</string>
 </resources>

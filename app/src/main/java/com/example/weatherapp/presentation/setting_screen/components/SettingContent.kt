@@ -4,34 +4,29 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.MenuAnchorType
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.weatherapp.R
+import androidx.compose.ui.unit.dp
 import com.example.weatherapp.presentation.bottom_bar.BottomBar
 import com.example.weatherapp.presentation.navigation.model.Screens
+import com.example.weatherapp.presentation.setting_screen.contents.SettingFontSize
+import com.example.weatherapp.presentation.setting_screen.contents.SettingLanguage
+import com.example.weatherapp.presentation.setting_screen.model.FontSizePrefs
 import com.example.weatherapp.presentation.setting_screen.model.Language
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingContent(
     state: SettingState,
-    onHandleExpanded: () -> Unit,
+    onToggleLanguageMenu: () -> Unit,
     setLanguage: (Language) -> Unit,
+    setFontSize: (FontSizePrefs) -> Unit,
     onBottomBarNavigationClick: (Screens) -> Unit
 ) {
-
     Scaffold(bottomBar = {
         BottomBar(
             onClick = onBottomBarNavigationClick,
@@ -39,46 +34,23 @@ fun SettingContent(
         )
     }) {
         Column(
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.Top),
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
         ) {
-            Text(text = stringResource(id = R.string.select_language))
-            ExposedDropdownMenuBox(
-                expanded = state.expanded,
-                onExpandedChange = { onHandleExpanded() }
-            )
-            {
-                TextField(
-                    readOnly = true,
-                    value = stringResource(id = state.selectedLocaleId),
 
-                    onValueChange = {},
-                    trailingIcon = {
-                        ExposedDropdownMenuDefaults.TrailingIcon(
-                            expanded = state.expanded
-                        )
-                    },
-                    modifier = Modifier.menuAnchor(
-                        type = MenuAnchorType.PrimaryEditable,
-                        enabled = true
-                    )
-                )
-                ExposedDropdownMenu(
-                    expanded = state.expanded,
-                    onDismissRequest = { onHandleExpanded() }) {
-                    Language.entries.forEach { element ->
-                        DropdownMenuItem(
-                            text = { Text(stringResource(id = element.languageId)) },
-                            onClick = {
-                                onHandleExpanded()
-                                setLanguage(element)
-                            })
-                    }
-                }
-            }
+            SettingFontSize(
+                state = state,
+                setFontSize = setFontSize
+            )
+            HorizontalDivider()
+            SettingLanguage(
+                state = state,
+                onToggleLanguageMenu = onToggleLanguageMenu,
+                setLanguage = setLanguage
+            )
         }
     }
 }
@@ -86,5 +58,5 @@ fun SettingContent(
 @Preview
 @Composable
 fun SettingContentPreview() {
-    SettingContent(SettingState(), {}, {}, {})
+    SettingContent(SettingState(), {}, {}, {}, {})
 }

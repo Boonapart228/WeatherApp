@@ -7,5 +7,10 @@ enum class Language(
     val languageCode : String
 ) {
     ENGLISH(R.string.en, "en"),
-    UKRAINE(R.string.uk, "uk")
+    UKRAINE(R.string.uk, "uk");
+    companion object {
+        fun fromString(name: String): Language {
+            return entries.find { it.name == name } ?: ENGLISH
+        }
+    }
 }

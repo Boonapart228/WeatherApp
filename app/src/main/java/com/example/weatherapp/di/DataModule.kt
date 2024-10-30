@@ -6,8 +6,7 @@ import com.example.weatherapp.data.WeatherApiRepositoryImpl
 import com.example.weatherapp.domain.repository.UserSettings
 import com.example.weatherapp.domain.repository.WeatherApiRepository
 import com.example.weatherapp.domain.usecase.setting.GetFontSizePrefsUseCase
-import com.example.weatherapp.domain.usecase.setting.GetLanguageCodeUseCase
-import com.example.weatherapp.domain.usecase.setting.GetLanguageIdUseCase
+import com.example.weatherapp.domain.usecase.setting.GetLanguageUseCase
 import com.example.weatherapp.domain.usecase.setting.SetFontSizePrefsUseCase
 import com.example.weatherapp.domain.usecase.weather.GetDataByCityUseCase
 import com.example.weatherapp.domain.usecase.setting.SetLanguageUseCase
@@ -41,16 +40,6 @@ class DataModule {
     }
 
     @Provides
-    fun provideGetLanguageCodeUseCase(userSettings: UserSettings): GetLanguageCodeUseCase {
-        return GetLanguageCodeUseCase(userSettings)
-    }
-
-    @Provides
-    fun provideGetLanguageIdUseCase(userSettings: UserSettings): GetLanguageIdUseCase {
-        return GetLanguageIdUseCase(userSettings)
-    }
-
-    @Provides
     fun provideSetFontSizePrefsUseCase(userSettings: UserSettings): SetFontSizePrefsUseCase {
         return SetFontSizePrefsUseCase(userSettings)
     }
@@ -58,5 +47,10 @@ class DataModule {
     @Provides
     fun provideGetFontSizePrefsUseCase(userSettings: UserSettings): GetFontSizePrefsUseCase {
         return GetFontSizePrefsUseCase(userSettings)
+    }
+
+    @Provides
+    fun provideGetLanguageUseCase(userSettings: UserSettings): GetLanguageUseCase {
+        return GetLanguageUseCase(userSettings)
     }
 }

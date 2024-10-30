@@ -10,7 +10,7 @@ import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.domain.usecase.setting.GetFontSizePrefsUseCase
-import com.example.weatherapp.domain.usecase.setting.GetLanguageIdUseCase
+import com.example.weatherapp.domain.usecase.setting.GetLanguageUseCase
 import com.example.weatherapp.domain.usecase.setting.SetFontSizePrefsUseCase
 import com.example.weatherapp.domain.usecase.setting.SetLanguageUseCase
 import com.example.weatherapp.presentation.navigation.model.Screens
@@ -21,7 +21,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,9 +29,9 @@ import javax.inject.Provider
 @HiltViewModel
 class SettingViewModel @Inject constructor(
     private val setLanguageUseCase: Provider<SetLanguageUseCase>,
-    private val getLanguageIdUseCase: Provider<GetLanguageIdUseCase>,
     private val setFontSizePrefsUseCase: Provider<SetFontSizePrefsUseCase>,
-    private val getFontSizePrefsUseCase: Provider<GetFontSizePrefsUseCase>
+    private val getFontSizePrefsUseCase: Provider<GetFontSizePrefsUseCase>,
+    private val getLanguageUseCase: Provider<GetLanguageUseCase>
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(SettingState())
@@ -48,7 +47,7 @@ class SettingViewModel @Inject constructor(
     }
 
     init {
-        getLanguageId()
+        getLanguagePrefs()
         getFontSizePrefs()
     }
 
@@ -69,11 +68,11 @@ class SettingViewModel @Inject constructor(
         }
     }
 
-    private fun getLanguageId() {
+    private fun getLanguagePrefs() {
         viewModelScope.launch {
             _state.update {
                 it.copy(
-                    selectedLocaleId = getLanguageIdUseCase.get().execute().first()
+                    selectedLocaleId = getLanguageUseCase.get().execute().languageId
                 )
             }
         }

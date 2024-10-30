@@ -2,19 +2,24 @@
     <string name="app_name">WeatherApp</string>
     <string name="home_bottom_bar">Home</string>
     <string name="setting_bottom_bar">Setting</string>
-    <string name="enter_city_prompt">Введіть місто</string>
-    <string name="city_no_digits">Цифри не допускаються</string>
-    <string name="temperature">Температура</string>
-    <string name="feelsLike">Відчувається як</string>
-    <string name="humidity">Вологість</string>
-    <string name="wind">Вітер</string>
-    <string name="time">Час</string>
-    <string name="data_last_update">Дата оновлення</string>
-    <string name="percent">%</string>
-    <string name="c">°</string>
-    <string name="kilometer_per_hour">kM/h</string>
-    <string name="empty" />
+    <string name="enter_city_prompt">Enter city</string>
+    <string name="city_no_digits">Digits are not allowed</string>
+    <string name="temperature">Temperature</string>
+    <string name="feelsLike">Feels like</string>
+    <string name="humidity">Humidity</string>
+    <string name="wind">Wind</string>
+    <string name="time">Time</string>
+    <string name="data_last_update">Last update date</string>
+    <string name="percent" translatable="false">%</string>
+    <string name="c" translatable="false">°</string>
+    <string name="kilometer_per_hour" translatable="false">kM/h</string>
+    <string name="empty" translatable="false" />
     <string name="en" translatable="false">English</string>
     <string name="uk" translatable="false">Українська</string>
-    <string name="select_language">Оберіть мову</string>
+    <string name="select_language">Choose a language</string>
+    <string name="select_font_size">Choose a font size</string>
+    <string name="font_size_s" translatable="false">S</string>
+    <string name="font_size_m" translatable="false">M</string>
+    <string name="font_size_l" translatable="false">L</string>
+
 </resources>

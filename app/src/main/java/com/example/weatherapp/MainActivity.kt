@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.weatherapp.presentation.navigation.Navigation
-import com.example.weatherapp.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -18,10 +17,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            AppTheme(dynamicColor = false) {
-               Surface(modifier = Modifier.fillMaxSize()) {
-                   Navigation()
-               }
+            Surface(modifier = Modifier.fillMaxSize()) {
+                Navigation()
             }
         }
     }

@@ -24,9 +24,10 @@ fun SettingScreen(
 
     }
     SettingContent(
-        onBottomBarNavigationClick = viewModel::onBottomBarNavigationClick,
         state = state,
-        onHandleExpanded = viewModel::onHandleExpanded,
-        setLanguage = viewModel::setLanguage
+        onToggleLanguageMenu = viewModel::onToggleLanguageMenu,
+        setLanguage = viewModel::setLanguage,
+        setFontSize = viewModel::setFontSize,
+        onBottomBarNavigationClick = viewModel::onBottomBarNavigationClick
     )
 }

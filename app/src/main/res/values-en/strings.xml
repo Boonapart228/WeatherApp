@@ -11,9 +11,6 @@
     <string name="wind">Wind</string>
     <string name="time">Time</string>
     <string name="data_last_update">Last update date</string>
-    <string name="percent">%</string>
-    <string name="c">°</string>
-    <string name="kilometer_per_hour">kM/h</string>
-    <string name="empty" />
     <string name="select_language">Choose a language</string>
+    <string name="select_font_size">Choose a font size</string>
 </resources>

@@ -5,8 +5,10 @@ import com.example.weatherapp.data.UserSettingsImpl
 import com.example.weatherapp.data.WeatherApiRepositoryImpl
 import com.example.weatherapp.domain.repository.UserSettings
 import com.example.weatherapp.domain.repository.WeatherApiRepository
+import com.example.weatherapp.domain.usecase.setting.GetFontSizePrefsUseCase
 import com.example.weatherapp.domain.usecase.setting.GetLanguageCodeUseCase
 import com.example.weatherapp.domain.usecase.setting.GetLanguageIdUseCase
+import com.example.weatherapp.domain.usecase.setting.SetFontSizePrefsUseCase
 import com.example.weatherapp.domain.usecase.weather.GetDataByCityUseCase
 import com.example.weatherapp.domain.usecase.setting.SetLanguageUseCase
 import dagger.Module
@@ -46,5 +48,15 @@ class DataModule {
     @Provides
     fun provideGetLanguageIdUseCase(userSettings: UserSettings): GetLanguageIdUseCase {
         return GetLanguageIdUseCase(userSettings)
+    }
+
+    @Provides
+    fun provideSetFontSizePrefsUseCase(userSettings: UserSettings): SetFontSizePrefsUseCase {
+        return SetFontSizePrefsUseCase(userSettings)
+    }
+
+    @Provides
+    fun provideGetFontSizePrefsUseCase(userSettings: UserSettings): GetFontSizePrefsUseCase {
+        return GetFontSizePrefsUseCase(userSettings)
     }
 }

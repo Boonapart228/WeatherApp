@@ -5,14 +5,14 @@ import com.example.weatherapp.domain.models.WeatherModel
 import com.example.weatherapp.domain.repository.WeatherApiRepository
 import retrofit2.Response
 
-class GetDataByCityUseCase(
+class GetDataByQueryUseCase(
     private val weatherApiRepository: WeatherApiRepository
 ) {
     suspend fun execute(
         apiKey: String = Constant.API_KEY,
-        city: String,
+        query: String,
         languageCode: String
     ): Response<WeatherModel> {
-        return weatherApiRepository.getDataByCity(apiKey, city, languageCode)
+        return weatherApiRepository.getDataByQuery(apiKey, query, languageCode)
     }
 }

@@ -21,5 +21,7 @@
     <string name="font_size_s" translatable="false">S</string>
     <string name="font_size_m" translatable="false">M</string>
     <string name="font_size_l" translatable="false">L</string>
+    <string name="find_me">Find me</string>
+
 
 </resources>

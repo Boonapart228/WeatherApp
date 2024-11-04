@@ -8,11 +8,11 @@ import retrofit2.Response
 class WeatherApiRepositoryImpl : WeatherApiRepository {
     private val weatherApi = RetrofitInstance.weatherApiRepository
 
-    override suspend fun getDataByCity(
+    override suspend fun getDataByQuery(
         apikey: String,
-        city: String,
+        query: String,
         languageCode: String
     ): Response<WeatherModel> {
-        return weatherApi.getDataByCity(city = city, languageCode = languageCode)
+        return weatherApi.getDataByQuery(query = query, languageCode = languageCode)
     }
 }

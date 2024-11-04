@@ -59,6 +59,7 @@ dependencies {
     //Hilt
     implementation(libs.hilt.android.v251)
     implementation(libs.androidx.ui.text.google.fonts)
+    implementation(libs.play.services.location)
     ksp(libs.hilt.compiler)
     //Navigation
     implementation(libs.androidx.navigation.compose)
@@ -71,6 +72,11 @@ dependencies {
     implementation (libs.lottie.compose)
     //Data Store
     implementation(libs.androidx.datastore.preferences)
+    //Location
+    implementation (libs.accompanist.permissions)
+
+
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

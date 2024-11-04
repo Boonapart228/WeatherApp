@@ -31,5 +31,8 @@ data class Dimensions(
     val mediumTextSize: TextUnit = 24.sp,
     val rowPadding: Dp = 16.dp,
     val spacerWidth: Dp = 16.dp,
-    val spacerHeight: Dp = 8.dp
+    val spacerHeight: Dp = 8.dp,
+    val rowVerticalPadding : Dp = 8.dp,
+    val outlinedButtonPaddingEnd : Dp = 8.dp,
+    val iconPaddingStart : Dp = 4.dp
 )

@@ -111,6 +111,6 @@ fun HomeContentPreview() {
         weatherResult = NetworkResponse.Default,
         onFindWeatherByLocationClick = {},
         state = HomeState(),
-        onToggleVisibility = {}
+        onToggleVisibility = {},
     )
 }

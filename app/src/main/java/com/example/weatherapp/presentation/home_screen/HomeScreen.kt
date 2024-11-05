@@ -8,6 +8,8 @@ import com.example.weatherapp.presentation.home_screen.components.HomeContent
 import com.example.weatherapp.presentation.home_screen.components.HomeNavigationEvent
 import com.example.weatherapp.presentation.home_screen.components.HomeViewModel
 import com.example.weatherapp.presentation.home_screen.model.PermissionEvent
+import com.example.weatherapp.presentation.home_screen.util.coarseAndFinePermissionsGranted
+import com.example.weatherapp.presentation.home_screen.util.coarsePermissionGranted
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 
@@ -50,10 +52,18 @@ fun HomeScreen(
         onFindWeatherByCityClick = viewModel::onFindWeatherByCityClick,
         weatherResult = weatherResult,
         onFindWeatherByLocationClick = {
-            if (locationPermissions.allPermissionsGranted) {
-                viewModel.onFindWeatherByLocation()
-            } else {
-                viewModel.onLocalePermissionClick(PermissionEvent.LocationPermissionEvent)
+            when {
+                locationPermissions.coarseAndFinePermissionsGranted() -> {
+                    viewModel.onFindWeatherByLocation()
+                }
+
+                locationPermissions.coarsePermissionGranted() -> {
+                    viewModel.onFindWeatherByLocation()
+                }
+
+                else -> {
+                    viewModel.onLocalePermissionClick(PermissionEvent.LocationPermissionEvent)
+                }
             }
         },
         onToggleVisibility = viewModel::onToggleVisibility

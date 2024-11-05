@@ -158,4 +158,12 @@ class HomeViewModel @Inject constructor(
             Screens.HOME_SCREEN -> {}
         }
     }
+
+    fun onToggleVisibility() {
+        viewModelScope.launch {
+            _state.update {
+                it.copy(isTextFullyVisible = !it.isTextFullyVisible)
+            }
+        }
+    }
 }

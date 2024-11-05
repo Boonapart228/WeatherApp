@@ -13,14 +13,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import com.example.weatherapp.ui.theme.LocalDimen
+import com.example.weatherapp.ui.theme.LocalProperty
 
 @Composable
-fun WeatherDetails(titleId: Int, info: String, symbolId: Int, modifier: Modifier = Modifier) {
+fun WeatherDetails(
+    titleId: Int,
+    info: String,
+    symbolId: Int,
+    modifier: Modifier = Modifier,
+    onToggleVisibility: () -> Unit = {},
+    isTextFullyVisible: Boolean = false,
+) {
     Card(
         modifier = modifier.fillMaxHeight(),
-
-        ) {
+        onClick = {
+            onToggleVisibility()
+        }
+    ) {
         Column(
             modifier = Modifier.padding(LocalDimen.current.columnPadding),
             verticalArrangement = Arrangement.spacedBy(LocalDimen.current.columnDetailsSpacing),
@@ -29,7 +40,9 @@ fun WeatherDetails(titleId: Int, info: String, symbolId: Int, modifier: Modifier
             Text(
                 text = stringResource(id = titleId),
                 textAlign = TextAlign.Start,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                overflow = if (isTextFullyVisible) TextOverflow.Ellipsis else TextOverflow.Visible,
+                maxLines = if (isTextFullyVisible) LocalProperty.current.minLines else LocalProperty.current.maxLines
             )
             Row(horizontalArrangement = Arrangement.spacedBy(LocalDimen.current.rowDetailsSpacing)) {
                 Text(

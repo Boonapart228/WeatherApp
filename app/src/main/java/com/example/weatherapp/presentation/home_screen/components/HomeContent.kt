@@ -30,12 +30,13 @@ import com.example.weatherapp.ui.theme.LocalDimen
 
 @Composable
 fun HomeContent(
+    state: HomeState,
     onBottomBarNavigationClick: (Screens) -> Unit,
     setCity: (String) -> Unit,
     onFindWeatherByCityClick: () -> Unit,
     weatherResult: NetworkResponse<WeatherModel>,
     onFindWeatherByLocationClick: () -> Unit,
-    state: HomeState,
+    onToggleVisibility: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -88,7 +89,9 @@ fun HomeContent(
                 NetworkResponse.Loading -> LoadingScreen()
                 is NetworkResponse.Success -> {
                     WeatherItem(
-                        weatherResult.data
+                        weatherResult.data,
+                        isTextFullyVisible = state.isTextFullyVisible,
+                        onToggleVisibility = onToggleVisibility,
                     )
                 }
 
@@ -103,10 +106,11 @@ fun HomeContent(
 fun HomeContentPreview() {
     HomeContent(
         onBottomBarNavigationClick = {},
-        {},
-        {},
+        setCity = {},
+        onFindWeatherByCityClick = {},
         weatherResult = NetworkResponse.Default,
         onFindWeatherByLocationClick = {},
-        state = HomeState()
+        state = HomeState(),
+        onToggleVisibility = {}
     )
 }

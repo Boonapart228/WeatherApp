@@ -9,5 +9,6 @@ data class HomeState(
     val city: String = "",
     val inValidCity: Boolean = false,
     val supportingText: Int = R.string.city_no_digits,
-    val currentLocation: Location? = null
+    val currentLocation: Location? = null,
+    val isTextFullyVisible: Boolean = false
 )

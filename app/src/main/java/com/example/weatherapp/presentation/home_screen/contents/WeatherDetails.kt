@@ -3,7 +3,7 @@ package com.example.weatherapp.presentation.home_screen.contents
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
@@ -14,6 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import com.example.weatherapp.ui.theme.LocalDimen
 import com.example.weatherapp.ui.theme.LocalProperty
 
@@ -27,7 +28,9 @@ fun WeatherDetails(
     isTextFullyVisible: Boolean = false,
 ) {
     Card(
-        modifier = modifier.fillMaxHeight(),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(4.dp),
         onClick = {
             onToggleVisibility()
         }
@@ -46,7 +49,9 @@ fun WeatherDetails(
             )
             Row(horizontalArrangement = Arrangement.spacedBy(LocalDimen.current.rowDetailsSpacing)) {
                 Text(
-                    text = info
+                    text = info,
+                    overflow = if (isTextFullyVisible) TextOverflow.Ellipsis else TextOverflow.Visible,
+                    maxLines = if (isTextFullyVisible) LocalProperty.current.minLines else LocalProperty.current.maxLines
                 )
                 Text(
                     text = stringResource(id = symbolId)

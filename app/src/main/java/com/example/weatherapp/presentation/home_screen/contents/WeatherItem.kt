@@ -28,7 +28,9 @@ import com.example.weatherapp.ui.theme.LocalProperty
 
 @Composable
 fun WeatherItem(
-    data: WeatherModel
+    data: WeatherModel,
+    onToggleVisibility: () -> Unit = {},
+    isTextFullyVisible: Boolean = false
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -70,7 +72,13 @@ fun WeatherItem(
         ) {
             WeatherDetail.entries.forEach { detail ->
                 item {
-                    WeatherDetails(detail.labelResId, detail.valueExtractor(data), detail.symbolId)
+                    WeatherDetails(
+                        detail.labelResId,
+                        detail.valueExtractor(data),
+                        detail.symbolId,
+                        isTextFullyVisible = isTextFullyVisible,
+                        onToggleVisibility = onToggleVisibility,
+                    )
                 }
             }
         }

@@ -44,6 +44,7 @@ fun HomeScreen(
     }
 
     HomeContent(
+        state = state,
         onBottomBarNavigationClick = viewModel::onBottomBarNavigationClick,
         setCity = viewModel::setCity,
         onFindWeatherByCityClick = viewModel::onFindWeatherByCityClick,
@@ -55,6 +56,6 @@ fun HomeScreen(
                 viewModel.onLocalePermissionClick(PermissionEvent.LocationPermissionEvent)
             }
         },
-        state = state
+        onToggleVisibility = viewModel::onToggleVisibility
     )
 }

@@ -8,5 +8,7 @@ val LocalProperty = compositionLocalOf {
 }
 
 data class Property(
-    val columnGridCells: Int = 2
+    val columnGridCells: Int = 2,
+    val minLines: Int = 1,
+    val maxLines: Int = 100
 )

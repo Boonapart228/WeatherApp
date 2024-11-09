@@ -5,14 +5,18 @@ import android.content.Context
 import com.example.weatherapp.data.LocationTrackerImpl
 import com.example.weatherapp.data.UserSettingsImpl
 import com.example.weatherapp.data.WeatherApiRepositoryImpl
+import com.example.weatherapp.data.WeatherDataValidatorImpl
 import com.example.weatherapp.domain.repository.LocationTracker
 import com.example.weatherapp.domain.repository.UserSettings
 import com.example.weatherapp.domain.repository.WeatherApiRepository
+import com.example.weatherapp.domain.repository.WeatherDataValidator
+import com.example.weatherapp.domain.usecase.location.GetCurrentLocationUseCase
 import com.example.weatherapp.domain.usecase.setting.GetFontSizePrefsUseCase
 import com.example.weatherapp.domain.usecase.setting.GetLanguageUseCase
 import com.example.weatherapp.domain.usecase.setting.SetFontSizePrefsUseCase
-import com.example.weatherapp.domain.usecase.weather.GetDataByQueryUseCase
 import com.example.weatherapp.domain.usecase.setting.SetLanguageUseCase
+import com.example.weatherapp.domain.usecase.weather.GetWeatherByCityUseCase
+import com.example.weatherapp.domain.usecase.weather.GetWeatherByLocationUseCase
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.Module
@@ -28,11 +32,6 @@ class DataModule {
     @Provides
     fun provideWeatherApiRepository(): WeatherApiRepository {
         return WeatherApiRepositoryImpl()
-    }
-
-    @Provides
-    fun provideGetDataByQueryUseCase(weatherApiRepository: WeatherApiRepository): GetDataByQueryUseCase {
-        return GetDataByQueryUseCase(weatherApiRepository)
     }
 
     @Provides
@@ -74,9 +73,35 @@ class DataModule {
         fusedLocationProviderClient: FusedLocationProviderClient,
         application: Application
     ): LocationTracker {
-        return  LocationTrackerImpl(
+        return LocationTrackerImpl(
             fusedLocationProviderClient = fusedLocationProviderClient,
             application = application
         )
+    }
+
+    @Provides
+    fun provideWeatherDataValidator(
+        userSettings: UserSettings,
+        weatherApiRepository: WeatherApiRepository
+    ): WeatherDataValidator {
+        return WeatherDataValidatorImpl(
+            userSettings = userSettings,
+            weatherApiRepository = weatherApiRepository
+        )
+    }
+
+    @Provides
+    fun provideGetCurrentLocationUseCase(locationTracker: LocationTracker): GetCurrentLocationUseCase {
+        return GetCurrentLocationUseCase(locationTracker)
+    }
+
+    @Provides
+    fun provideGetWeatherByLocationUseCase(weatherDataValidator: WeatherDataValidator): GetWeatherByLocationUseCase {
+        return GetWeatherByLocationUseCase(weatherDataValidator)
+    }
+
+    @Provides
+    fun provideGetWeatherByCityUseCase(weatherDataValidator: WeatherDataValidator): GetWeatherByCityUseCase {
+        return GetWeatherByCityUseCase(weatherDataValidator)
     }
 }

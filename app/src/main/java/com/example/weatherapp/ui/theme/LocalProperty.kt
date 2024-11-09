@@ -10,5 +10,6 @@ val LocalProperty = compositionLocalOf {
 data class Property(
     val columnGridCells: Int = 2,
     val minLines: Int = 1,
-    val maxLines: Int = 100
+    val maxLines: Int = 100,
+    val animationDurationMillis : Int = 300
 )

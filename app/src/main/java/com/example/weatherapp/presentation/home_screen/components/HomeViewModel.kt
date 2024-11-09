@@ -5,9 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.R
 import com.example.weatherapp.domain.models.NetworkResponse
 import com.example.weatherapp.domain.models.WeatherModel
-import com.example.weatherapp.domain.repository.LocationTracker
-import com.example.weatherapp.domain.usecase.setting.GetLanguageUseCase
-import com.example.weatherapp.domain.usecase.weather.GetDataByQueryUseCase
+import com.example.weatherapp.domain.repository.WeatherDataValidator
+import com.example.weatherapp.domain.usecase.location.GetCurrentLocationUseCase
+import com.example.weatherapp.domain.usecase.weather.GetWeatherByCityUseCase
+import com.example.weatherapp.domain.usecase.weather.GetWeatherByLocationUseCase
 import com.example.weatherapp.presentation.home_screen.model.PermissionEvent
 import com.example.weatherapp.presentation.navigation.model.Screens
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,9 +24,10 @@ import javax.inject.Provider
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getDataByQueryUseCase: Provider<GetDataByQueryUseCase>,
-    private val getLanguageUseCase: Provider<GetLanguageUseCase>,
-    private val locationTracker: LocationTracker
+    private val getCurrentLocationUseCase: Provider<GetCurrentLocationUseCase>,
+    private val getWeatherByLocationUseCase: Provider<GetWeatherByLocationUseCase>,
+    private val getWeatherByCityUseCase: Provider<GetWeatherByCityUseCase>,
+    private val weatherDataValidator: WeatherDataValidator
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(HomeState())
@@ -54,7 +56,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             _state.update {
                 it.copy(
-                    currentLocation = locationTracker.getCurrentLocation()
+                    currentLocation = getCurrentLocationUseCase.get().execute()
                 )
             }
             findWeatherByLocation("${_state.value.currentLocation?.latitude}, ${_state.value.currentLocation?.longitude}")
@@ -64,23 +66,7 @@ class HomeViewModel @Inject constructor(
     private fun findWeatherByLocation(location: String) {
         _weatherResult.value = NetworkResponse.Loading
         viewModelScope.launch {
-            try {
-                val response = getDataByQueryUseCase.get().execute(
-                    query = location,
-                    languageCode = getLanguageUseCase.get().execute().languageCode
-                )
-                if (response.isSuccessful) {
-                    response.body()?.let {
-                        _weatherResult.value = NetworkResponse.Success(it)
-                    } ?: run {
-                        _weatherResult.value = NetworkResponse.Error("No data found")
-                    }
-                } else {
-                    _weatherResult.value = NetworkResponse.Error("Error: ${response.message()}")
-                }
-            } catch (e: Exception) {
-                _weatherResult.value = NetworkResponse.Error("Exception: ${e.message}")
-            }
+            _weatherResult.value = getWeatherByLocationUseCase.get().execute(location)
         }
     }
 
@@ -95,7 +81,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun validCity(): Boolean {
-        if (_state.value.city.isBlank() || _state.value.city.any { it.isDigit() }) {
+        if (_state.value.city.any { it.isDigit() }) {
             _state.update {
                 it.copy(
                     inValidCity = true,
@@ -119,26 +105,12 @@ class HomeViewModel @Inject constructor(
         _weatherResult.value = NetworkResponse.Loading
         if (validCity()) {
             viewModelScope.launch {
-                try {
-                    val response = getDataByQueryUseCase.get().execute(
-                        query = _state.value.city,
-                        languageCode = getLanguageUseCase.get().execute().languageCode
-                    )
-                    if (response.isSuccessful) {
-                        response.body()?.let {
-                            _weatherResult.value = NetworkResponse.Success(it)
-                        } ?: run {
-                            _weatherResult.value = NetworkResponse.Error("No data found")
-                        }
-                    } else {
-                        _weatherResult.value = NetworkResponse.Error("Error: ${response.message()}")
-                    }
-                } catch (e: Exception) {
-                    _weatherResult.value = NetworkResponse.Error("Exception: ${e.message}")
-                }
+                _weatherResult.value = getWeatherByCityUseCase.get().execute(_state.value.city)
             }
         } else {
-            _weatherResult.value = NetworkResponse.Error("In valid city")
+            viewModelScope.launch {
+                _weatherResult.value = weatherDataValidator.handleInvalidCityFormat()
+            }
         }
     }
 

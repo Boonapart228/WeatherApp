@@ -1,5 +1,11 @@
 package com.example.weatherapp.presentation.home_screen.contents
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
@@ -12,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.example.weatherapp.R
+import com.example.weatherapp.ui.theme.LocalProperty
 
 
 @Composable
@@ -33,8 +40,26 @@ fun TextFieldWithValidation(
             }
         },
         leadingIcon = {
-            IconButton(onClick = { onFindCityClick() }) {
-                Icon(imageVector = Icons.Default.Search, contentDescription = null)
+            AnimatedVisibility(
+                visible = value.isNotBlank(),
+                enter = slideInHorizontally(
+                    animationSpec = tween(
+                        LocalProperty.current.animationDurationMillis,
+                        easing = FastOutSlowInEasing
+                    ),
+                    initialOffsetX = { fullWidth -> -fullWidth }
+                ),
+                exit = slideOutHorizontally(
+                    animationSpec = tween(
+                        LocalProperty.current.animationDurationMillis,
+                        easing = FastOutLinearInEasing
+                    ),
+                    targetOffsetX = { fullWidth -> -fullWidth }
+                )
+            ) {
+                IconButton(onClick = { onFindCityClick() }) {
+                    Icon(imageVector = Icons.Default.Search, contentDescription = null)
+                }
             }
         },
         label = { Text(text = stringResource(id = R.string.enter_city_prompt)) },

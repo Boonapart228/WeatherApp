@@ -8,7 +8,7 @@ data class HomeState(
     val selectedScreen: Screens = Screens.HOME_SCREEN,
     val city: String = "",
     val inValidCity: Boolean = false,
-    val supportingText: Int = R.string.city_no_digits,
+    val supportingText: Int = R.string.empty,
     val currentLocation: Location? = null,
     val isTextFullyVisible: Boolean = false
 )

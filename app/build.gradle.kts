@@ -4,11 +4,18 @@ plugins {
     //Hilt
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
+    //Secrets Gradle Plugin
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+
 }
 
 android {
     namespace = "com.example.weatherapp"
     compileSdk = 34
+
+    buildFeatures{
+        buildConfig = true
+    }
 
     defaultConfig {
         applicationId = "com.example.weatherapp"
@@ -25,7 +32,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -69,11 +76,11 @@ dependencies {
     //GSON
     implementation(libs.converter.gson)
     //Lottie
-    implementation (libs.lottie.compose)
+    implementation(libs.lottie.compose)
     //Data Store
     implementation(libs.androidx.datastore.preferences)
     //Location
-    implementation (libs.accompanist.permissions)
+    implementation(libs.accompanist.permissions)
 
 
 

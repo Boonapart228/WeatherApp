@@ -2,10 +2,12 @@ package com.example.weatherapp.di
 
 import android.app.Application
 import android.content.Context
+import com.example.weatherapp.data.KeysProviderImpl
 import com.example.weatherapp.data.LocationTrackerImpl
 import com.example.weatherapp.data.UserSettingsImpl
 import com.example.weatherapp.data.WeatherApiRepositoryImpl
 import com.example.weatherapp.data.WeatherDataValidatorImpl
+import com.example.weatherapp.domain.repository.KeysProvider
 import com.example.weatherapp.domain.repository.LocationTracker
 import com.example.weatherapp.domain.repository.UserSettings
 import com.example.weatherapp.domain.repository.WeatherApiRepository
@@ -82,11 +84,13 @@ class DataModule {
     @Provides
     fun provideWeatherDataValidator(
         userSettings: UserSettings,
-        weatherApiRepository: WeatherApiRepository
+        weatherApiRepository: WeatherApiRepository,
+        keysProvider: KeysProvider
     ): WeatherDataValidator {
         return WeatherDataValidatorImpl(
             userSettings = userSettings,
-            weatherApiRepository = weatherApiRepository
+            weatherApiRepository = weatherApiRepository,
+            keysProvider = keysProvider
         )
     }
 
@@ -103,5 +107,10 @@ class DataModule {
     @Provides
     fun provideGetWeatherByCityUseCase(weatherDataValidator: WeatherDataValidator): GetWeatherByCityUseCase {
         return GetWeatherByCityUseCase(weatherDataValidator)
+    }
+
+    @Provides
+    fun provideKeysProvider(): KeysProvider {
+        return KeysProviderImpl()
     }
 }

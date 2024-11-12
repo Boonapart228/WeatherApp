@@ -19,6 +19,7 @@ import com.example.weatherapp.domain.usecase.setting.SetFontSizePrefsUseCase
 import com.example.weatherapp.domain.usecase.setting.SetLanguageUseCase
 import com.example.weatherapp.domain.usecase.weather.GetWeatherByCityUseCase
 import com.example.weatherapp.domain.usecase.weather.GetWeatherByLocationUseCase
+import com.example.weatherapp.domain.usecase.weather_validator.HandleInvalidCityFormatUseCase
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.Module
@@ -112,5 +113,10 @@ class DataModule {
     @Provides
     fun provideKeysProvider(): KeysProvider {
         return KeysProviderImpl()
+    }
+
+    @Provides
+    fun provideHandleInvalidCityFormatUseCase(weatherDataValidator: WeatherDataValidator): HandleInvalidCityFormatUseCase {
+        return HandleInvalidCityFormatUseCase(weatherDataValidator)
     }
 }

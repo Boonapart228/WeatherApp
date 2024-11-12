@@ -5,10 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.R
 import com.example.weatherapp.domain.models.NetworkResponse
 import com.example.weatherapp.domain.models.WeatherModel
-import com.example.weatherapp.domain.repository.WeatherDataValidator
 import com.example.weatherapp.domain.usecase.location.GetCurrentLocationUseCase
 import com.example.weatherapp.domain.usecase.weather.GetWeatherByCityUseCase
 import com.example.weatherapp.domain.usecase.weather.GetWeatherByLocationUseCase
+import com.example.weatherapp.domain.usecase.weather_validator.HandleInvalidCityFormatUseCase
 import com.example.weatherapp.presentation.home_screen.model.PermissionEvent
 import com.example.weatherapp.presentation.navigation.model.Screens
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,7 +27,7 @@ class HomeViewModel @Inject constructor(
     private val getCurrentLocationUseCase: Provider<GetCurrentLocationUseCase>,
     private val getWeatherByLocationUseCase: Provider<GetWeatherByLocationUseCase>,
     private val getWeatherByCityUseCase: Provider<GetWeatherByCityUseCase>,
-    private val weatherDataValidator: WeatherDataValidator
+    private val handleInvalidCityFormatUseCase: Provider<HandleInvalidCityFormatUseCase>
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(HomeState())
@@ -109,7 +109,7 @@ class HomeViewModel @Inject constructor(
             }
         } else {
             viewModelScope.launch {
-                _weatherResult.value = weatherDataValidator.handleInvalidCityFormat()
+                _weatherResult.value = handleInvalidCityFormatUseCase.get().execute()
             }
         }
     }

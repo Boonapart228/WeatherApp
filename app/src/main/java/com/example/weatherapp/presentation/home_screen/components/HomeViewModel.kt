@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.R
 import com.example.weatherapp.domain.models.NetworkResponse
 import com.example.weatherapp.domain.models.WeatherModel
+import com.example.weatherapp.domain.repository.WeatherStoreRepository
 import com.example.weatherapp.domain.usecase.location.GetCurrentLocationUseCase
 import com.example.weatherapp.domain.usecase.weather.GetWeatherByCityUseCase
 import com.example.weatherapp.domain.usecase.weather.GetWeatherByLocationUseCase
@@ -27,7 +28,8 @@ class HomeViewModel @Inject constructor(
     private val getCurrentLocationUseCase: Provider<GetCurrentLocationUseCase>,
     private val getWeatherByLocationUseCase: Provider<GetWeatherByLocationUseCase>,
     private val getWeatherByCityUseCase: Provider<GetWeatherByCityUseCase>,
-    private val handleInvalidCityFormatUseCase: Provider<HandleInvalidCityFormatUseCase>
+    private val handleInvalidCityFormatUseCase: Provider<HandleInvalidCityFormatUseCase>,
+    private val weatherStoreRepository: WeatherStoreRepository
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(HomeState())
@@ -47,6 +49,15 @@ class HomeViewModel @Inject constructor(
 
     val weatherResult: StateFlow<NetworkResponse<WeatherModel>> = _weatherResult.asStateFlow()
 
+    init {
+        getWeatherResult()
+    }
+
+    private fun getWeatherResult() {
+        viewModelScope.launch {
+            _weatherResult.value = weatherStoreRepository.getWeatherResponse()
+        }
+    }
 
     fun onFindWeatherByLocation() {
         setCurrentLocation()

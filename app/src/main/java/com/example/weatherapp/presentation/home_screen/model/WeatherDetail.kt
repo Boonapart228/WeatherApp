@@ -12,6 +12,6 @@ enum class WeatherDetail(
     WIND(R.string.wind, { it.current.wind_kph.toString() }, R.string.kilometer_per_hour),
     FEELS_LIKE(R.string.feelsLike, { it.current.feelslike_c.toString() }, R.string.c),
     HUMIDITY(R.string.humidity, { it.current.humidity.toString() }, R.string.percent),
-    TIME(R.string.time, { it.location.localtime.drop(11) }, R.string.empty),
+    TIME(R.string.time, { it.current.last_updated.drop(11) }, R.string.empty),
     LAST_UPDATED(R.string.data_last_update, { it.current.last_updated }, R.string.empty)
 }

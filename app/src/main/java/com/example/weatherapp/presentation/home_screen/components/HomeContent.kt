@@ -6,7 +6,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -36,7 +39,8 @@ fun HomeContent(
     onFindWeatherByCityClick: () -> Unit,
     weatherResult: NetworkResponse<WeatherModel>,
     onFindWeatherByLocationClick: () -> Unit,
-    onToggleVisibility: () -> Unit
+    onToggleVisibility: () -> Unit,
+    onRefreshWeatherClick : () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -83,6 +87,10 @@ fun HomeContent(
                         modifier = Modifier.padding(start = LocalDimen.current.iconPaddingStart)
                     )
                 }
+
+                IconButton(onClick = onRefreshWeatherClick) {
+                    Icon(imageVector = Icons.Default.Refresh, contentDescription = null)
+                }
             }
             when (weatherResult) {
                 is NetworkResponse.Error -> ErrorScreen(messageId = weatherResult.message)
@@ -112,5 +120,6 @@ fun HomeContentPreview() {
         onFindWeatherByLocationClick = {},
         state = HomeState(),
         onToggleVisibility = {},
+        onRefreshWeatherClick = {}
     )
 }

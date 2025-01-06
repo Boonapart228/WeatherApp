@@ -21,6 +21,7 @@ import com.example.weatherapp.domain.usecase.setting.SetFontSizePrefsUseCase
 import com.example.weatherapp.domain.usecase.setting.SetLanguageUseCase
 import com.example.weatherapp.domain.usecase.weather.GetWeatherByCityUseCase
 import com.example.weatherapp.domain.usecase.weather.GetWeatherByLocationUseCase
+import com.example.weatherapp.domain.usecase.weather.GetWeatherLocationName
 import com.example.weatherapp.domain.usecase.weather_validator.HandleInvalidCityFormatUseCase
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -126,7 +127,12 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideWeatherStoreRepository() : WeatherStoreRepository{
+    fun provideWeatherStoreRepository(): WeatherStoreRepository {
         return WeatherStoreRepositoryImpl()
+    }
+
+    @Provides
+    fun provideGetWeatherLocationName(weatherStoreRepository: WeatherStoreRepository): GetWeatherLocationName {
+        return GetWeatherLocationName(weatherStoreRepository)
     }
 }

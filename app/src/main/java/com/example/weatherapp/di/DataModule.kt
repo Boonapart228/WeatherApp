@@ -7,11 +7,13 @@ import com.example.weatherapp.data.LocationTrackerImpl
 import com.example.weatherapp.data.UserSettingsImpl
 import com.example.weatherapp.data.WeatherApiRepositoryImpl
 import com.example.weatherapp.data.WeatherDataValidatorImpl
+import com.example.weatherapp.data.WeatherStoreRepositoryImpl
 import com.example.weatherapp.domain.repository.KeysProvider
 import com.example.weatherapp.domain.repository.LocationTracker
 import com.example.weatherapp.domain.repository.UserSettings
 import com.example.weatherapp.domain.repository.WeatherApiRepository
 import com.example.weatherapp.domain.repository.WeatherDataValidator
+import com.example.weatherapp.domain.repository.WeatherStoreRepository
 import com.example.weatherapp.domain.usecase.location.GetCurrentLocationUseCase
 import com.example.weatherapp.domain.usecase.setting.GetFontSizePrefsUseCase
 import com.example.weatherapp.domain.usecase.setting.GetLanguageUseCase
@@ -86,12 +88,14 @@ class DataModule {
     fun provideWeatherDataValidator(
         userSettings: UserSettings,
         weatherApiRepository: WeatherApiRepository,
-        keysProvider: KeysProvider
+        keysProvider: KeysProvider,
+        weatherStoreRepository: WeatherStoreRepository
     ): WeatherDataValidator {
         return WeatherDataValidatorImpl(
             userSettings = userSettings,
             weatherApiRepository = weatherApiRepository,
-            keysProvider = keysProvider
+            keysProvider = keysProvider,
+            weatherStoreRepository = weatherStoreRepository
         )
     }
 
@@ -118,5 +122,11 @@ class DataModule {
     @Provides
     fun provideHandleInvalidCityFormatUseCase(weatherDataValidator: WeatherDataValidator): HandleInvalidCityFormatUseCase {
         return HandleInvalidCityFormatUseCase(weatherDataValidator)
+    }
+
+    @Provides
+    @Singleton
+    fun provideWeatherStoreRepository() : WeatherStoreRepository{
+        return WeatherStoreRepositoryImpl()
     }
 }

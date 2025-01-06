@@ -6,12 +6,19 @@ import com.example.weatherapp.domain.repository.KeysProvider
 import com.example.weatherapp.domain.repository.UserSettings
 import com.example.weatherapp.domain.repository.WeatherApiRepository
 import com.example.weatherapp.domain.repository.WeatherDataValidator
+import com.example.weatherapp.domain.repository.WeatherStoreRepository
 
 class WeatherDataValidatorImpl(
     private val weatherApiRepository: WeatherApiRepository,
     private val userSettings: UserSettings,
-    private val keysProvider: KeysProvider
+    private val keysProvider: KeysProvider,
+    private val weatherStoreRepository: WeatherStoreRepository
 ) : WeatherDataValidator {
+
+    private fun setWeatherResponse(networkResponse: NetworkResponse<WeatherModel>) {
+        weatherStoreRepository.setWeatherResponse(networkResponse)
+    }
+
     override suspend fun getWeatherByLocation(location: String): NetworkResponse<WeatherModel> {
         return try {
             val response = weatherApiRepository.getDataByQuery(
@@ -21,6 +28,7 @@ class WeatherDataValidatorImpl(
             )
             if (response.isSuccessful) {
                 response.body()?.let {
+                    setWeatherResponse(NetworkResponse.Success(it))
                     NetworkResponse.Success(it)
                 } ?: NetworkResponse.Error("No data found")
             } else {
@@ -40,6 +48,7 @@ class WeatherDataValidatorImpl(
             )
             if (response.isSuccessful) {
                 response.body()?.let {
+                    setWeatherResponse(NetworkResponse.Success(it))
                     NetworkResponse.Success(it)
                 } ?: run {
                     NetworkResponse.Error("No data found")

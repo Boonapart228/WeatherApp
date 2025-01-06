@@ -22,6 +22,6 @@
     <string name="font_size_m" translatable="false">M</string>
     <string name="font_size_l" translatable="false">L</string>
     <string name="find_me">Find me</string>
-
+    <string name="geolocation_permission_message">To change location permission, go to settings</string>
 
 </resources>

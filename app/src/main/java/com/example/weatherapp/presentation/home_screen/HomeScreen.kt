@@ -1,9 +1,12 @@
 package com.example.weatherapp.presentation.home_screen
 
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
+import com.example.weatherapp.R
 import com.example.weatherapp.presentation.home_screen.components.HomeContent
 import com.example.weatherapp.presentation.home_screen.components.HomeNavigationEvent
 import com.example.weatherapp.presentation.home_screen.components.HomeViewModel
@@ -21,6 +24,7 @@ fun HomeScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val weatherResult by viewModel.weatherResult.collectAsState()
+    val context = LocalContext.current
     val locationPermissions = rememberMultiplePermissionsState(
         permissions = listOf(
             android.Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -40,6 +44,14 @@ fun HomeScreen(
             when (it) {
                 PermissionEvent.LocationPermissionEvent -> {
                     locationPermissions.launchMultiplePermissionRequest()
+                    if(!locationPermissions.allPermissionsGranted){
+                        Toast.makeText(
+                            context,
+                            R.string.geolocation_permission_message,
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
                 }
             }
         }

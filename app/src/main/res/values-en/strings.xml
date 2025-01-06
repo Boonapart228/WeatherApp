@@ -14,4 +14,6 @@
     <string name="select_language">Choose a language</string>
     <string name="select_font_size">Choose a font size</string>
     <string name="find_me">Find me</string>
+    <string name="geolocation_permission_message">To change geolocation permission, go to settings</string>
+
 </resources>

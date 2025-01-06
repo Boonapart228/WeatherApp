@@ -9,6 +9,7 @@ import com.example.weatherapp.domain.repository.WeatherStoreRepository
 import com.example.weatherapp.domain.usecase.location.GetCurrentLocationUseCase
 import com.example.weatherapp.domain.usecase.weather.GetWeatherByCityUseCase
 import com.example.weatherapp.domain.usecase.weather.GetWeatherByLocationUseCase
+import com.example.weatherapp.domain.usecase.weather.GetWeatherLocationName
 import com.example.weatherapp.domain.usecase.weather_validator.HandleInvalidCityFormatUseCase
 import com.example.weatherapp.presentation.home_screen.model.PermissionEvent
 import com.example.weatherapp.presentation.navigation.model.Screens
@@ -29,7 +30,8 @@ class HomeViewModel @Inject constructor(
     private val getWeatherByLocationUseCase: Provider<GetWeatherByLocationUseCase>,
     private val getWeatherByCityUseCase: Provider<GetWeatherByCityUseCase>,
     private val handleInvalidCityFormatUseCase: Provider<HandleInvalidCityFormatUseCase>,
-    private val weatherStoreRepository: WeatherStoreRepository
+    private val weatherStoreRepository: WeatherStoreRepository,
+    private val getWeatherLocationName: Provider<GetWeatherLocationName>
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(HomeState())
@@ -146,6 +148,16 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             _state.update {
                 it.copy(isTextFullyVisible = !it.isTextFullyVisible)
+            }
+        }
+    }
+
+    fun onRefreshWeatherClick() {
+        getWeatherLocationName.get().execute()?.let {
+            _weatherResult.value = NetworkResponse.Loading
+            viewModelScope.launch {
+                _weatherResult.value = getWeatherByCityUseCase.get()
+                    .execute(it)
             }
         }
     }

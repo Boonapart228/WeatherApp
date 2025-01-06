@@ -6,6 +6,7 @@ import com.example.weatherapp.domain.repository.WeatherStoreRepository
 
 class WeatherStoreRepositoryImpl : WeatherStoreRepository {
     private var localeWeatherResponse : NetworkResponse<WeatherModel> = NetworkResponse.Default
+    private var localeWeatherLocationName : String? = null
 
     override fun setWeatherResponse(networkResponse: NetworkResponse<WeatherModel>) {
         localeWeatherResponse = networkResponse
@@ -13,5 +14,13 @@ class WeatherStoreRepositoryImpl : WeatherStoreRepository {
 
     override fun getWeatherResponse(): NetworkResponse<WeatherModel> {
         return localeWeatherResponse
+    }
+
+    override fun setWeatherLocationName(locationName: String) {
+        localeWeatherLocationName = locationName
+    }
+
+    override fun getWeatherLocationName(): String? {
+        return localeWeatherLocationName
     }
 }

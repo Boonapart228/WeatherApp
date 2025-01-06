@@ -19,6 +19,10 @@ class WeatherDataValidatorImpl(
         weatherStoreRepository.setWeatherResponse(networkResponse)
     }
 
+    private fun setWeatherLocationName(locationName: String) {
+        weatherStoreRepository.setWeatherLocationName(locationName)
+    }
+
     override suspend fun getWeatherByLocation(location: String): NetworkResponse<WeatherModel> {
         return try {
             val response = weatherApiRepository.getDataByQuery(
@@ -29,6 +33,7 @@ class WeatherDataValidatorImpl(
             if (response.isSuccessful) {
                 response.body()?.let {
                     setWeatherResponse(NetworkResponse.Success(it))
+                    setWeatherLocationName(it.location.name)
                     NetworkResponse.Success(it)
                 } ?: NetworkResponse.Error("No data found")
             } else {
@@ -49,6 +54,7 @@ class WeatherDataValidatorImpl(
             if (response.isSuccessful) {
                 response.body()?.let {
                     setWeatherResponse(NetworkResponse.Success(it))
+                    setWeatherLocationName(it.location.name)
                     NetworkResponse.Success(it)
                 } ?: run {
                     NetworkResponse.Error("No data found")

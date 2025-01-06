@@ -66,6 +66,7 @@ fun HomeScreen(
                 }
             }
         },
-        onToggleVisibility = viewModel::onToggleVisibility
+        onToggleVisibility = viewModel::onToggleVisibility,
+        onRefreshWeatherClick = viewModel::onRefreshWeatherClick
     )
 }

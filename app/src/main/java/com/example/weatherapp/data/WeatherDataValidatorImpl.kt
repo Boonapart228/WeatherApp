@@ -49,7 +49,7 @@ class WeatherDataValidatorImpl(
             val response = weatherApiRepository.getDataByQuery(
                 query = city,
                 languageCode = userSettings.getLanguage().languageCode,
-                apikey = keysProvider.getWeatherApiKey()
+                apikey = keysProvider.getWeatherApiKey(),
             )
             if (response.isSuccessful) {
                 response.body()?.let {

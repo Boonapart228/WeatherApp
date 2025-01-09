@@ -15,5 +15,15 @@
     <string name="select_font_size">Choose a font size</string>
     <string name="find_me">Find me</string>
     <string name="geolocation_permission_message">To change geolocation permission, go to settings</string>
-
+    <string name="monday_short">Mon</string>
+    <string name="tuesday_short">Tue</string>
+    <string name="wednesday_short">Wed</string>
+    <string name="thursday_short">Thu</string>
+    <string name="friday_short">Fri</string>
+    <string name="saturday_short">Sat</string>
+    <string name="sunday_short">Sun</string>
+    <string name="unknown">Unknown</string>
+    <string name="min_short">Min</string>
+    <string name="max_short">Max</string>
+    <string name="avg_short">Avg</string>
 </resources>

@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.icons.Icons
@@ -30,7 +32,8 @@ import com.example.weatherapp.ui.theme.LocalProperty
 fun WeatherItem(
     data: WeatherModel,
     onToggleVisibility: () -> Unit = {},
-    isTextFullyVisible: Boolean = false
+    isTextFullyVisible: Boolean = false,
+    getShortDayName : (Int) -> Int,
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -63,6 +66,24 @@ fun WeatherItem(
             contentDescription = null,
             placeholder = painterResource(R.drawable.ic_launcher_foreground)
         )
+        LazyRow(
+            modifier = Modifier.fillMaxWidth().heightIn(min = LocalDimen.current.lazyRowMinHeight, max = LocalDimen.current.lazyRowMaxHeight),
+            horizontalArrangement = Arrangement.spacedBy(LocalDimen.current.lazyHorizontalSpacing),
+            contentPadding = PaddingValues(horizontal = LocalDimen.current.lazyRowContentPadding)
+
+        ) {
+            data.forecast.forecastday.forEach {
+                item {
+                    WeatherForecast(
+                        icon = it.day.condition.icon,
+                        maxTemp = it.day.maxtemp_c.toString(),
+                        minTemp = it.day.mintemp_c.toString(),
+                        avgTemp = it.day.avgtemp_c.toString(),
+                        shortDayName = getShortDayName(it.date_epoch)
+                    )
+                }
+            }
+        }
         LazyVerticalGrid(
             columns = GridCells.Fixed(LocalProperty.current.columnGridCells),
             modifier = Modifier.fillMaxWidth(),

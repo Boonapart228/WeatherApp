@@ -14,7 +14,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import com.example.weatherapp.ui.theme.LocalDimen
 import com.example.weatherapp.ui.theme.LocalProperty
 
@@ -30,7 +29,7 @@ fun WeatherDetails(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(4.dp),
+            .padding(LocalDimen.current.cardPadding),
         onClick = {
             onToggleVisibility()
         }

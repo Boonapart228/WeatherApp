@@ -6,6 +6,7 @@ import com.example.weatherapp.R
 import com.example.weatherapp.domain.models.NetworkResponse
 import com.example.weatherapp.domain.models.WeatherModel
 import com.example.weatherapp.domain.repository.WeatherStoreRepository
+import com.example.weatherapp.domain.usecase.date_handler.GetShortDayNameUseCase
 import com.example.weatherapp.domain.usecase.location.GetCurrentLocationUseCase
 import com.example.weatherapp.domain.usecase.weather.GetWeatherByCityUseCase
 import com.example.weatherapp.domain.usecase.weather.GetWeatherByLocationUseCase
@@ -31,7 +32,8 @@ class HomeViewModel @Inject constructor(
     private val getWeatherByCityUseCase: Provider<GetWeatherByCityUseCase>,
     private val handleInvalidCityFormatUseCase: Provider<HandleInvalidCityFormatUseCase>,
     private val weatherStoreRepository: WeatherStoreRepository,
-    private val getWeatherLocationName: Provider<GetWeatherLocationName>
+    private val getWeatherLocationName: Provider<GetWeatherLocationName>,
+    private val getShortDayNameUseCase: Provider<GetShortDayNameUseCase>
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(HomeState())
@@ -160,5 +162,9 @@ class HomeViewModel @Inject constructor(
                     .execute(it)
             }
         }
+    }
+
+    fun getShortDayName(dataEpoch: Int): Int {
+        return getShortDayNameUseCase.get().execute(dataEpoch)
     }
 }

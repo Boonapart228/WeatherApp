@@ -7,10 +7,11 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface WeatherApiRepository {
-    @GET("/v1/current.json")
+    @GET("/v1/forecast.json")
     suspend fun getDataByQuery(
         @Query("key") apikey: String,
         @Query("q") query: String,
-        @Query("lang") languageCode: String
+        @Query("lang") languageCode: String,
+        @Query("days") days : Int = 3
     ): Response<WeatherModel>
 }

@@ -2,18 +2,21 @@ package com.example.weatherapp.di
 
 import android.app.Application
 import android.content.Context
+import com.example.weatherapp.data.EpochDateHandlerImpl
 import com.example.weatherapp.data.KeysProviderImpl
 import com.example.weatherapp.data.LocationTrackerImpl
 import com.example.weatherapp.data.UserSettingsImpl
 import com.example.weatherapp.data.WeatherApiRepositoryImpl
 import com.example.weatherapp.data.WeatherDataValidatorImpl
 import com.example.weatherapp.data.WeatherStoreRepositoryImpl
+import com.example.weatherapp.domain.repository.EpochDateHandler
 import com.example.weatherapp.domain.repository.KeysProvider
 import com.example.weatherapp.domain.repository.LocationTracker
 import com.example.weatherapp.domain.repository.UserSettings
 import com.example.weatherapp.domain.repository.WeatherApiRepository
 import com.example.weatherapp.domain.repository.WeatherDataValidator
 import com.example.weatherapp.domain.repository.WeatherStoreRepository
+import com.example.weatherapp.domain.usecase.date_handler.GetShortDayNameUseCase
 import com.example.weatherapp.domain.usecase.location.GetCurrentLocationUseCase
 import com.example.weatherapp.domain.usecase.setting.GetFontSizePrefsUseCase
 import com.example.weatherapp.domain.usecase.setting.GetLanguageUseCase
@@ -134,5 +137,15 @@ class DataModule {
     @Provides
     fun provideGetWeatherLocationName(weatherStoreRepository: WeatherStoreRepository): GetWeatherLocationName {
         return GetWeatherLocationName(weatherStoreRepository)
+    }
+
+    @Provides
+    fun provideEpochDateHandler(): EpochDateHandler {
+        return EpochDateHandlerImpl()
+    }
+
+    @Provides
+    fun provideGetShortDayNameUseCase(epochDateHandler: EpochDateHandler): GetShortDayNameUseCase {
+        return GetShortDayNameUseCase(epochDateHandler)
     }
 }

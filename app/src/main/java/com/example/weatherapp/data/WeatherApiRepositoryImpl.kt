@@ -10,12 +10,14 @@ class WeatherApiRepositoryImpl : WeatherApiRepository {
     override suspend fun getDataByQuery(
         apikey: String,
         query: String,
-        languageCode: String
+        languageCode: String,
+        days : Int
     ): Response<WeatherModel> {
         return weatherApi.getDataByQuery(
             query = query,
             languageCode = languageCode,
-            apikey = apikey
+            apikey = apikey,
+            days = days
         )
     }
 }

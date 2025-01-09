@@ -44,7 +44,7 @@ fun HomeScreen(
             when (it) {
                 PermissionEvent.LocationPermissionEvent -> {
                     locationPermissions.launchMultiplePermissionRequest()
-                    if(!locationPermissions.allPermissionsGranted){
+                    if (!locationPermissions.allPermissionsGranted) {
                         Toast.makeText(
                             context,
                             R.string.geolocation_permission_message,
@@ -79,6 +79,7 @@ fun HomeScreen(
             }
         },
         onToggleVisibility = viewModel::onToggleVisibility,
-        onRefreshWeatherClick = viewModel::onRefreshWeatherClick
+        onRefreshWeatherClick = viewModel::onRefreshWeatherClick,
+        getShortDayName = viewModel::getShortDayName
     )
 }

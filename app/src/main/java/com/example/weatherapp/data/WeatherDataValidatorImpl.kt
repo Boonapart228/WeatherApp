@@ -1,6 +1,5 @@
 package com.example.weatherapp.data
 
-import android.util.Log
 import com.example.weatherapp.domain.models.NetworkResponse
 import com.example.weatherapp.domain.models.WeatherModel
 import com.example.weatherapp.domain.repository.KeysProvider

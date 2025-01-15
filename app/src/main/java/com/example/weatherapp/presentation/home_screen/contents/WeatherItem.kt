@@ -4,9 +4,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -59,6 +61,7 @@ fun WeatherItem(
                 fontWeight = FontWeight.Medium
             )
         }
+        Spacer(modifier = Modifier.padding(vertical = LocalDimen.current.spacerPaddingVertical))
         Text(text = data.current.condition.text, fontSize = LocalDimen.current.mediumTextSize)
         AsyncImage(
             modifier = Modifier.size(LocalDimen.current.largeIconSize),
@@ -67,7 +70,12 @@ fun WeatherItem(
             placeholder = painterResource(R.drawable.ic_launcher_foreground)
         )
         LazyRow(
-            modifier = Modifier.fillMaxWidth().heightIn(min = LocalDimen.current.lazyRowMinHeight, max = LocalDimen.current.lazyRowMaxHeight),
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(
+                    min = LocalDimen.current.lazyRowMinHeight,
+                    max = LocalDimen.current.lazyRowMaxHeight
+                ),
             horizontalArrangement = Arrangement.spacedBy(LocalDimen.current.lazyHorizontalSpacing),
             contentPadding = PaddingValues(horizontal = LocalDimen.current.lazyRowContentPadding)
 

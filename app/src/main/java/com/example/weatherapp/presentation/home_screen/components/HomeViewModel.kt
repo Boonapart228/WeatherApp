@@ -87,12 +87,18 @@ class HomeViewModel @Inject constructor(
 
     fun setCity(city: String) {
         viewModelScope.launch {
-            _state.update {
-                it.copy(
-                    city = city
-                )
+            if (city.isValidCityInput() || city.isEmpty()) {
+                _state.update {
+                    it.copy(
+                        city = city
+                    )
+                }
             }
         }
+    }
+
+    private fun String.isValidCityInput(): Boolean {
+        return this.isNotEmpty() && (this.last().isLetter() || this.last() == ' ')
     }
 
     private fun validCity(): Boolean {

@@ -22,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.example.weatherapp.R
 import com.example.weatherapp.domain.models.WeatherModel
@@ -62,7 +61,7 @@ fun WeatherItem(
                 fontWeight = FontWeight.Medium
             )
         }
-        Spacer(modifier = Modifier.padding(vertical = 4.dp))
+        Spacer(modifier = Modifier.padding(vertical = LocalDimen.current.spacerPaddingVertical))
         Text(text = data.current.condition.text, fontSize = LocalDimen.current.mediumTextSize)
         AsyncImage(
             modifier = Modifier.size(LocalDimen.current.largeIconSize),

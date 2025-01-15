@@ -22,7 +22,7 @@ data class Dimensions(
     val shimmerEffectShortSize: Dp = 12.dp,
     val shimmerEffectMediumSize: Dp = 32.dp,
     val shimmerEffectLongSize: Dp = 120.dp,
-    val columnSpacing: Dp = 4.dp, // 16
+    val columnSpacing: Dp = 4.dp,
     val rowSpacing: Dp = 12.dp,
     val rowDetailsSpacing: Dp = 2.dp,
     val lazyContentPadding: Dp = 8.dp,
@@ -43,5 +43,6 @@ data class Dimensions(
     val spacerHeight: Dp = 8.dp,
     val rowVerticalPadding : Dp = 8.dp,
     val outlinedButtonPaddingEnd : Dp = 8.dp,
-    val iconPaddingStart : Dp = 4.dp
+    val iconPaddingStart : Dp = 4.dp,
+    val spacerPaddingVertical : Dp = 4.dp
 )

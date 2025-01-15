@@ -1,5 +1,6 @@
 package com.example.weatherapp.data
 
+import android.util.Log
 import com.example.weatherapp.domain.models.NetworkResponse
 import com.example.weatherapp.domain.models.WeatherModel
 import com.example.weatherapp.domain.repository.KeysProvider
@@ -60,7 +61,7 @@ class WeatherDataValidatorImpl(
                     NetworkResponse.Error("No data found")
                 }
             } else {
-                NetworkResponse.Error("Error: ${response.message()}")
+                NetworkResponse.Error("Error: Unable to fetch weather data for city \"$city\".")
             }
         } catch (e: Exception) {
             NetworkResponse.Error("Exception: ${e.message}")

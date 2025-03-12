@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WeatherApp</string>
+    <string name="home_bottom_bar">Головна</string>
+    <string name="setting_bottom_bar">Налаштування</string>
+    <string name="enter_city_prompt">Введіть місто</string>
+    <string name="city_no_digits">Цифри не допускаються</string>
+    <string name="temperature">Температура</string>
+    <string name="feelsLike">Відчувається як</string>
+    <string name="humidity">Вологість</string>
+    <string name="wind">Вітер</string>
+    <string name="time">Час</string>
+    <string name="data_last_update">Дата оновлення</string>
+    <string name="select_language">Оберіть мову</string>
+    <string name="select_font_size">Оберіть розмір тексту</string>
+    <string name="find_me">Знайти мене</string>
+    <string name="geolocation_permission_message">Щоб змінити дозвіл на геолокацію, перейдіть у налаштування</string>
+    <string name="monday_short">Пн</string>
+    <string name="tuesday_short">Вт</string>
+    <string name="wednesday_short">Ср</string>
+    <string name="thursday_short">Чт</string>
+    <string name="friday_short">Пт</string>
+    <string name="saturday_short">Сб</string>
+    <string name="sunday_short">Нд</string>
+    <string name="unknown">Невідомо</string>
+    <string name="min_short">Мін</string>
+    <string name="max_short">Макс</string>
+    <string name="avg_short">Сер</string>
+</resources>
